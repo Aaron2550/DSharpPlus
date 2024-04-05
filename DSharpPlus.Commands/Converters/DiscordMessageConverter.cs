@@ -14,6 +14,7 @@ public partial class DiscordMessageConverter : ISlashArgumentConverter<DiscordMe
     [GeneratedRegex(@"\/channels\/(?<guild>(?:\d+|@me))\/(?<channel>\d+)\/(?<message>\d+)\/?", RegexOptions.Compiled | RegexOptions.ECMAScript)]
     private static partial Regex GetMessageRegex();
 
+    public string ReadableName { get; init; } = "Discord Message Link";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.String;
     public bool RequiresText { get; init; } = true;
 

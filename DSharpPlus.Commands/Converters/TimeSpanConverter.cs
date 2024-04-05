@@ -14,6 +14,7 @@ public partial class TimeSpanConverter : ISlashArgumentConverter<TimeSpan>, ITex
     [GeneratedRegex("^((?<days>\\d+)d\\s*)?((?<hours>\\d+)h\\s*)?((?<minutes>\\d+)m\\s*)?((?<seconds>\\d+)s\\s*)?$", RegexOptions.ExplicitCapture | RegexOptions.Compiled | RegexOptions.RightToLeft | RegexOptions.CultureInvariant)]
     private static partial Regex _getTimeSpanRegex();
 
+    public string ReadableName { get; init; } = "Time Duration";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.String;
     public bool RequiresText { get; init; } = true;
 

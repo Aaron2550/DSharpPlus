@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class Int16Converter : ISlashArgumentConverter<short>, ITextArgumentConverter<short>
 {
+    public string ReadableName { get; init; } = "Short Integer (-32,768 through 32,767)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

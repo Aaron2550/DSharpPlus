@@ -8,6 +8,7 @@ using DSharpPlus.EventArgs;
 
 public class DiscordEmojiConverter : ISlashArgumentConverter<DiscordEmoji>, ITextArgumentConverter<DiscordEmoji>
 {
+    public string ReadableName { get; init; } = "Discord Emoji";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.String;
     public bool RequiresText { get; init; } = true;
 

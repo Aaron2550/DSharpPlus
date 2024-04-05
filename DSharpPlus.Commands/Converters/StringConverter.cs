@@ -13,6 +13,7 @@ using DSharpPlus.EventArgs;
 
 public class StringConverter : ISlashArgumentConverter<string>, ITextArgumentConverter<string>
 {
+    public string ReadableName { get; init; } = "Text";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.String;
     public bool RequiresText { get; init; } = true;
 

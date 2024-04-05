@@ -11,6 +11,7 @@ using DSharpPlus.EventArgs;
 
 public class AttachmentConverter : ISlashArgumentConverter<DiscordAttachment>, ITextArgumentConverter<DiscordAttachment>
 {
+    public string ReadableName { get; init; } = "Discord File";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Attachment;
     public bool RequiresText { get; init; }
 

@@ -10,6 +10,7 @@ using DSharpPlus.EventArgs;
 
 public class DateTimeOffsetConverter : ISlashArgumentConverter<DateTimeOffset>, ITextArgumentConverter<DateTimeOffset>
 {
+    public string ReadableName { get; init; } = "Date and Time";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.String;
     public bool RequiresText { get; init; } = true;
 

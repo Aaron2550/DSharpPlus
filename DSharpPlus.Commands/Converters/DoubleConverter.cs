@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class DoubleConverter : ISlashArgumentConverter<double>, ITextArgumentConverter<double>
 {
+    public string ReadableName { get; init; } = "Decimal Number";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Number;
     public bool RequiresText { get; init; } = true;
 

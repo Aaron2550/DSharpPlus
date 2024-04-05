@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class Int32Converter : ISlashArgumentConverter<int>, ITextArgumentConverter<int>
 {
+    public string ReadableName { get; init; } = "Integer (0 through 2,147,483,647)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class SByteConverter : ISlashArgumentConverter<sbyte>, ITextArgumentConverter<sbyte>
 {
+    public string ReadableName { get; init; } = "Signed Byte (-128 through 127)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

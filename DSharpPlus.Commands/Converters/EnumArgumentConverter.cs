@@ -10,6 +10,7 @@ using DSharpPlus.EventArgs;
 
 public class EnumConverter : ISlashArgumentConverter<Enum>, ITextArgumentConverter<Enum>
 {
+    public string ReadableName { get; init; } = "Enum";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

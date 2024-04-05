@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class UInt32Converter : ISlashArgumentConverter<uint>, ITextArgumentConverter<uint>
 {
+    public string ReadableName { get; init; } = "Unsigned Integer (0 through 4,294,967,295)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

@@ -9,6 +9,7 @@ using DSharpPlus.EventArgs;
 
 public class ByteConverter : ISlashArgumentConverter<byte>, ITextArgumentConverter<byte>
 {
+    public string ReadableName { get; init; } = "Byte (0 through 255)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Integer;
     public bool RequiresText { get; init; } = true;
 

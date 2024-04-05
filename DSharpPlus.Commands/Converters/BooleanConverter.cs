@@ -8,6 +8,7 @@ using DSharpPlus.EventArgs;
 
 public class BooleanConverter : ISlashArgumentConverter<bool>, ITextArgumentConverter<bool>
 {
+    public string ReadableName { get; init; } = "Boolean (true/false)";
     public ApplicationCommandOptionType ParameterType { get; init; } = ApplicationCommandOptionType.Boolean;
     public bool RequiresText { get; init; } = true;
 
