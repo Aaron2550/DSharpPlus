@@ -5,17 +5,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
 
 using Polly;
 
-namespace DSharpPlus.Net;
+namespace DSharpPlus.Net.Ratelimits;
 
-internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDisposable
+internal class RatelimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDisposable
 {
-    private readonly RateLimitBucket globalBucket;
-    private readonly ConcurrentDictionary<string, RateLimitBucket> buckets = [];
+    private readonly RatelimitBucket globalBucket;
+    private readonly ConcurrentDictionary<string, RatelimitBucket> buckets = [];
     private readonly ConcurrentDictionary<string, string> routeHashes = [];
 
     private readonly ILogger logger;
@@ -23,7 +22,7 @@ internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDis
 
     private bool cancel = false;
 
-    public RateLimitStrategy(ILogger logger, int waitingForHashMilliseconds = 200, int maximumRestRequestsPerSecond = 15)
+    public RatelimitStrategy(ILogger logger, int waitingForHashMilliseconds = 200, int maximumRestRequestsPerSecond = 15)
     {
         this.logger = logger;
         this.waitingForHashMilliseconds = waitingForHashMilliseconds;
@@ -122,7 +121,7 @@ internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDis
         }
         else
         {
-            RateLimitBucket bucket = this.buckets.GetOrAdd(hash, _ => new());
+            RatelimitBucket bucket = this.buckets.GetOrAdd(hash, _ => new());
 
             logger.LogTrace
             (
@@ -228,7 +227,7 @@ internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDis
         {
             string newHash = hashHeader?.Single()!;
 
-            if (!RateLimitBucket.TryExtractRateLimitBucket(response.Headers, out RateLimitCandidateBucket extracted))
+            if (!RatelimitBucket.TryExtractRateLimitBucket(response.Headers, out RatelimitCandidateBucket extracted))
             {
                 return;
             }
@@ -238,7 +237,7 @@ internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDis
             }
             else
             {
-                if (this.buckets.TryGetValue(newHash, out RateLimitBucket? oldBucket))
+                if (this.buckets.TryGetValue(newHash, out RatelimitBucket? oldBucket))
                 {
                     oldBucket.UpdateBucket(extracted.Maximum, extracted.Remaining, extracted.Reset);
                 }
@@ -261,7 +260,7 @@ internal class RateLimitStrategy : ResilienceStrategy<HttpResponseMessage>, IDis
         {
             foreach (KeyValuePair<string, string> pair in this.routeHashes)
             {
-                if (this.buckets.TryGetValue(pair.Value, out RateLimitBucket? bucket) && bucket.Reset < DateTime.UtcNow + TimeSpan.FromSeconds(1))
+                if (this.buckets.TryGetValue(pair.Value, out RatelimitBucket? bucket) && bucket.Reset < DateTime.UtcNow + TimeSpan.FromSeconds(1))
                 {
                     this.buckets.Remove(pair.Value, out _);
                     this.routeHashes.Remove(pair.Key, out _);
